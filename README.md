@@ -1,15 +1,13 @@
-# ?Ž‰ Nix Flakes Templates ?Ž‰
+# ðŸŽ‰ Nix Flakes Templates ðŸŽ‰
 
 I created this repository as a collection of personal Nix flakes templates that I use for various projects. The main template in this repository is a Golang template with support for creating a Nix module and a Nix container. Flakes are a new way to manage Nix packages, and these templates can serve as a starting point for your own flakes projects.
 
 ## Templates
 
-- ?’¡ [Golang Template] A template for creating a Golang project. This template includes the following features:
-  - Direnv support for automatically loading environment variables when entering the project directory.
-  - A Nix module for creating a systemd service to run the Golang project as a daemon.
+- ðŸ’¡ [Golang Template] A template for creating a Golang project. This template includes the following features:
+  - ðŸ”’ Direnv support for automatically loading environment variables when entering the project directory.
+  - ðŸš€ A Nix module for creating a systemd service to run the Golang project as a daemon.
   - Nix container which starts the systemd service automatically
-  
-  
 
 ## Installation
 
