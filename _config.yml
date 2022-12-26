@@ -26,3 +26,4 @@ limit_posts         : 0
 future              : false
 unpublished         : false
 
+theme: minima
