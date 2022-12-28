@@ -39,10 +39,10 @@
             src = ./.;
             unpackPhase = ":";
             installPhase =
-            ''
-              mkdir -p $out/bin
-              install main.sh $out/bin/
-            '';
+              ''
+                mkdir -p $out/bin
+                install main.sh $out/bin/
+              '';
           };
         });
 
