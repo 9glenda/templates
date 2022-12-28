@@ -13,6 +13,10 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgsUnstable";
+    };
   };
 
   outputs =
@@ -20,6 +24,7 @@
     , nixpkgsUnstable
     , nixpkgsGitHub
     , flake-compat
+    , home-manager
     ,
     }:
     let
@@ -46,6 +51,7 @@
             git
             colmena
           ];
+          NIX_CONFIG = "experimental-features = nix-command flakes";
         };
       });
 
@@ -54,12 +60,14 @@
           system = "x86_64-linux";
           modules =
             [
+              #home-manager.nixosModules.home-manager
               modulesMain
             ];
         };
         main_aarch64-linux = nixpkgsUnstable {
           system = "aarch64-linux";
           modules = [
+            home-manager.nixosModules.home-manager
             modulesMain
           ];
         };
