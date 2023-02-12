@@ -8,7 +8,7 @@
     url = "github:edolstra/flake-compat";
     flake = false;
   };
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, flake-compat }:
     let
 
       # to work with older version of flakes
