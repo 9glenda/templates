@@ -43,6 +43,11 @@
           description = "A basic dotfiles flake";
         };
 
+        dwm-flake = {
+          path = ./dwm-flake;
+          description = "A basic dwm flake";
+        };
+
       };
       devShells = forAllSystems (system: {
         default = nixpkgsFor.${system}.mkShell {

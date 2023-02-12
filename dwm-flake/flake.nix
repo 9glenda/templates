@@ -30,93 +30,94 @@
     {
 
       # Provide some binary packages for selected system types.
-      packages = forAllSystems (system:
-        let
-          pkgs = nixpkgsFor.${system};
-        in
-        {
-          dwm =   (self: super: {
-    dwm = super.dwm.overrideAttrs (oldAttrs: rec {
-      src = ./.;
-    });
-  });
+      packages = forAllSystems
+        (system:
+          let
+            pkgs = nixpkgsFor.${system};
+          in
+          {
+            dwm = (self: super: {
+              dwm = super.dwm.overrideAttrs (oldAttrs: rec {
+                src = ./.;
+              });
+            });
 
-      nixosConfigurations.container = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules =
-          [
-            self.nixosModule
-            ({ pkgs, ... }: {
-              boot.isContainer = true;
+            nixosConfigurations.container = nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              modules =
+                [
+                  self.nixosModule
+                  ({ pkgs, ... }: {
+                    boot.isContainer = true;
 
-              # Let 'nixos-version --json' know about the Git revision
-              # of this flake.
-              system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
+                    # Let 'nixos-version --json' know about the Git revision
+                    # of this flake.
+                    system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
 
-              environment.systemPackages = [
-                self.packages.x86_64-linux.golang
-              ];
-              golang.systemd = {
-                enable = true;
-              };
-              networking.hostName = "golang";
-              services.getty.autologinUser = "root";
-            })
-          ];
-      };
-
-      nixosModule = { config, lib, pkgs, ... }:
-        with lib;
-        let
-          cfg = config.golang.systemd;
-        in
-        {
-          options.golang.systemd = {
-            enable = mkEnableOption "Enables golang";
-          };
-
-          config = mkIf cfg.enable {
-            systemd.services."golang.golang" = {
-              wantedBy = [ "multi-user.target" ];
-
-              serviceConfig =
-                let pkg = forAllSystems (system: self.packages.${system}.golang);
-                in {
-                  Restart = "on-failure";
-                  ExecStart = "${self.packages.x86_64-linux.golang}/bin/golang";
-                  DynamicUser = "yes";
-                  RuntimeDirectory = "golang.golang";
-                  RuntimeDirectoryMode = "0755";
-                  StateDirectory = "golang.golang";
-                  StateDirectoryMode = "0700";
-                  CacheDirectory = "golang.golang";
-                  CacheDirectoryMode = "0750";
-                };
+                    environment.systemPackages = [
+                      self.packages.x86_64-linux.golang
+                    ];
+                    golang.systemd = {
+                      enable = true;
+                    };
+                    networking.hostName = "golang";
+                    services.getty.autologinUser = "root";
+                  })
+                ];
             };
+
+            nixosModule = { config, lib, pkgs, ... }:
+              with lib;
+              let
+                cfg = config.golang.systemd;
+              in
+              {
+                options.golang.systemd = {
+                  enable = mkEnableOption "Enables golang";
+                };
+
+                config = mkIf cfg.enable {
+                  systemd.services."golang.golang" = {
+                    wantedBy = [ "multi-user.target" ];
+
+                    serviceConfig =
+                      let pkg = forAllSystems (system: self.packages.${system}.golang);
+                      in {
+                        Restart = "on-failure";
+                        ExecStart = "${self.packages.x86_64-linux.golang}/bin/golang";
+                        DynamicUser = "yes";
+                        RuntimeDirectory = "golang.golang";
+                        RuntimeDirectoryMode = "0755";
+                        StateDirectory = "golang.golang";
+                        StateDirectoryMode = "0700";
+                        CacheDirectory = "golang.golang";
+                        CacheDirectoryMode = "0750";
+                      };
+                  };
+                };
+
+              };
+
+            # `nix run`
+            apps = forAllSystems (system: {
+              default = {
+                type = "app";
+                program = "${self.packages.${system}.golang}/bin/golang";
+              };
+            });
+
+            formatter = forAllSystems (system: nixpkgsFor.${system}.nixpkgs-fmt);
+
+            devShells = forAllSystems (system: {
+              default = nixpkgsFor.${system}.mkShell {
+                packages = [
+                  nixpkgsFor.${system}.go
+                  self.packages.${system}.golang
+                ];
+              };
+            });
+
+
+            defaultPackage = forAllSystems (system: self.packages.${system}.golang);
           };
-
-        };
-
-      # `nix run`
-      apps = forAllSystems (system: {
-        default = {
-          type = "app";
-          program = "${self.packages.${system}.golang}/bin/golang";
-        };
-      });
-
-      formatter = forAllSystems (system: nixpkgsFor.${system}.nixpkgs-fmt);
-
-      devShells = forAllSystems (system: {
-        default = nixpkgsFor.${system}.mkShell {
-          packages = [
-            nixpkgsFor.${system}.go
-            self.packages.${system}.golang
-          ];
-        };
-      });
-
-
-      defaultPackage = forAllSystems (system: self.packages.${system}.golang);
-    };
-}
+        }
