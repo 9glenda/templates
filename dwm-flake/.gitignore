@@ -1,0 +1,8 @@
+.direnv
+result
+.tmp
+*.o
+dwm
+dwm-msg
+config.h
+patches.h
