@@ -2,4 +2,4 @@
   - flake.lock
 
 "nix":
-  - *.nix
+  - "*.nix"
