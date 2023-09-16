@@ -5,6 +5,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     rust-overlay.url = "github:oxalica/rust-overlay";
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -14,6 +18,7 @@
     nixpkgs,
     treefmt-nix,
     rust-overlay,
+    ...
   }:
     flake-utils.lib.eachDefaultSystem (
       system: let
