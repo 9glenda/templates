@@ -4,8 +4,8 @@ on:
     branches: [main]
 
 jobs:
-  build:
-    name: nix build
+  install-nix:
+    name: "Install Nix"
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
@@ -13,5 +13,17 @@ jobs:
         uses: DeterminateSystems/flake-checker-action@v5
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v4
+  flake-build:
+    name: "Build"
+    runs-on: ubuntu-22.04
+    needs: [ install-nix ]
+    steps:
       - name: nix build
         run: nix build
+  flake-check:
+    name: "Check"
+    runs-on: ubuntu-22.04
+    needs: [ install-nix ]
+    steps:
+      - name: nix check
+        run: nix check
