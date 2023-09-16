@@ -30,7 +30,9 @@
           clippy = toolchain;
         };
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
-        buildInputs = with pkgs; [];
+        buildInputs = with pkgs; [
+          git
+        ];
       in rec {
         formatter = treefmtEval.config.build.wrapper;
         # For `nix build` & `nix run`:
@@ -47,9 +49,9 @@
             nativeBuildInputs = with pkgs; [cmake pkg-config];
 
             meta = with pkgs.lib; {
-              description = "${cargo.version.description}";
+              description = "${cargo.package.description}";
               license = licenses.gpl3;
-              mainProgram = "${cargo.version.name}";
+              mainProgram = "${cargo.package.name}";
               # maintainers = with maintainers; [];
             };
           };

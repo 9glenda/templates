@@ -1,6 +1,6 @@
 use std::process::Command;
 fn main() {
-    let version = match Command::new("git").args(&["describe", "--always"]).output() {
+    let version = match Command::new("git").args(["describe", "--always"]).output() {
         Ok(version) => version,
         Err(err) => panic!("Failed to run `git describe --always`\n Error: {}", err),
     };

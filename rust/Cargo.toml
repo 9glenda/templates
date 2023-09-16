@@ -1,5 +1,6 @@
 [package]
 name = "rust-flake"
+description = "simple flake for rust projects"
 version = "0.1.0"
 edition = "2021"
 readme = "README.md"
