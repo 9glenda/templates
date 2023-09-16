@@ -13,7 +13,6 @@ build = "build.rs"
 [[bin]]
 name = "rust-flake"
 
-
 [profile.dev]
 opt-level = 0
 debug = false
