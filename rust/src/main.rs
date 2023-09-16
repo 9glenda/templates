@@ -1,3 +1,4 @@
 fn main() {
-    println!("Rust flake!");
+    println!("Rust Flake!");
+    println!("Version: {}", env!("VERSION"));
 }
