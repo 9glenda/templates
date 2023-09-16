@@ -17,6 +17,7 @@
   }:
     flake-utils.lib.eachDefaultSystem (
       system: let
+        cargo = builtins.fromTOML (builtins.readFile ./Cargo.toml);
         overlays = [(import rust-overlay)];
         pkgs = (import nixpkgs) {
           inherit system overlays;
@@ -35,8 +36,8 @@
         # For `nix build` & `nix run`:
         packages = {
           default = naersk'.buildPackage {
-            pname = "rust-flake";
-            version = "latest";
+            pname = "${cargo.package.name}";
+            version = "${cargo.package.version}";
 
             src = ./.;
             doCheck = true; # `cargo test`
@@ -46,10 +47,9 @@
             nativeBuildInputs = with pkgs; [cmake pkg-config];
 
             meta = with pkgs.lib; {
-              description = "rust flake template";
-              longDescription = '''';
+              description = "${cargo.version.description}";
               license = licenses.gpl3;
-              mainProgram = "rust-flake";
+              mainProgram = "${cargo.version.name}";
               # maintainers = with maintainers; [];
             };
           };
