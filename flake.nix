@@ -48,7 +48,7 @@
           description = "A basic dwm flake";
         };
 
-        rust-flake = {
+        rust = {
           path = ./rust;
           description = "A basic rust flake";
         };
