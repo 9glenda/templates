@@ -7,19 +7,17 @@
     rust-overlay.url = "github:oxalica/rust-overlay";
   };
 
-  outputs =
-    { self
-    , flake-utils
-    , naersk
-    , nixpkgs
-    , treefmt-nix
-    , rust-overlay
-    ,
-    }:
+  outputs = {
+    self,
+    flake-utils,
+    naersk,
+    nixpkgs,
+    treefmt-nix,
+    rust-overlay,
+  }:
     flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        overlays = [ (import rust-overlay) ];
+      system: let
+        overlays = [(import rust-overlay)];
         pkgs = (import nixpkgs) {
           inherit system overlays;
         };
@@ -31,9 +29,8 @@
           clippy = toolchain;
         };
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
-        buildInputs = with pkgs; [ ];
-      in
-      rec {
+        buildInputs = with pkgs; [];
+      in rec {
         formatter = treefmtEval.config.build.wrapper;
         # For `nix build` & `nix run`:
         packages = {
@@ -44,9 +41,9 @@
             src = ./.;
             doCheck = true; # `cargo test`
 
-            buildInputs = buildInputs ++ (with pkgs; [ zlib ]);
+            buildInputs = buildInputs ++ (with pkgs; [zlib]);
 
-            nativeBuildInputs = with pkgs; [ cmake pkg-config ];
+            nativeBuildInputs = with pkgs; [cmake pkg-config];
 
             meta = with pkgs.lib; {
               description = "rust flake template";
@@ -66,10 +63,11 @@
         # For `nix develop`:
         devShells = {
           default = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [ toolchain ];
+            nativeBuildInputs = with pkgs; [toolchain];
           };
         };
         checks = {
+          # default = packages.default;
           formatting = treefmtEval.config.build.check self;
           lint = packages.clippy;
         };
