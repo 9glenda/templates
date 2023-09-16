@@ -33,8 +33,8 @@
     {
       templates = {
 
-        golang = {
-          path = ./golang;
+        golang-old = {
+          path = ./golang-old;
           description = "A basic golang flake";
         };
 
@@ -46,6 +46,11 @@
         dwm-flake = {
           path = ./dwm-flake;
           description = "A basic dwm flake";
+        };
+
+        rust-flake = {
+          path = ./rust;
+          description = "A basic rust flake";
         };
 
       };
