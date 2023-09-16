@@ -5,5 +5,5 @@ fn main() {
         Err(err) => panic!("Failed to run `git describe --always`\n Error: {}", err),
     };
     let git_hash = String::from_utf8(version.stdout).unwrap();
-    println!("cargo:rustc-env=VERSION={}", git_hash);
+    println!("cargo:rustc-env=GIT_VERSION={}", git_hash);
 }
