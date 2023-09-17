@@ -1,6 +1,24 @@
-fn main() {
-    println!("Rust Flake!");
-    println!("Git Version: {}", env!("GIT_VERSION"));
+use clap::{Parser, Subcommand};
 
-    println!("Version: {}", env!("CARGO_PKG_VERSION"));
+#[derive(Parser)]
+#[command(author, version, about, long_about = None)]
+#[command(propagate_version = true)]
+struct Cli {
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(Subcommand)]
+enum Commands {
+    // print text
+    Print { text: String },
+}
+
+fn main() {
+    let cli = Cli::parse();
+    match &cli.command {
+        Commands::Print { text } => {
+            println!("text: {text:?}")
+        }
+    }
 }
