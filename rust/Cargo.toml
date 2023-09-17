@@ -24,4 +24,3 @@ lto = false
 lto = true
 strip = true
 opt-level = 3
-

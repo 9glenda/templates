@@ -17,8 +17,10 @@ enum Commands {
 fn main() {
     let cli = Cli::parse();
     match &cli.command {
-        Commands::Print { text } => {
-            println!("text: {text:?}")
-        }
+        Commands::Print { text } => print_text(text.to_string()),
     }
+}
+
+fn print_text(text: String) {
+    println!("text: {text:?}");
 }
