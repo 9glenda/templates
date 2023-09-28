@@ -38,6 +38,16 @@
         buildInputs = with pkgs; [
           git
         ];
+        cargoPlugins = with pkgs; [
+          cargo-expand
+          cargo-modules
+          cargo-nextest
+          cargo-criterion
+          cargo-watch
+          # cargo-llvm-cov
+          bacon
+          gnuplot
+        ];
       in rec {
         formatter = treefmtEval.config.build.wrapper;
         # For `nix build` & `nix run`:
@@ -70,7 +80,7 @@
         # For `nix develop`:
         devShells = {
           default = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [toolchain];
+            nativeBuildInputs = with pkgs; [toolchain cargoPlugins];
           };
         };
         checks = {
