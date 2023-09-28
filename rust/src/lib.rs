@@ -58,6 +58,5 @@
     missing_debug_implementations,
     noop_method_call,
     unused_extern_crates,
-    unused_import_braces,
+    unused_import_braces
 )]
-
