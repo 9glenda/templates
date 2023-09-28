@@ -8,8 +8,7 @@ build = "build.rs"
 license = "GPLv3"
 keywords = ["rust"]
 categories = ["development-tools"]
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+repository = "https://github.com/9glenda/rust-flake"
 
 [dependencies]
 clap = { version = "4.4.3", features = ["cargo", "derive"] }
