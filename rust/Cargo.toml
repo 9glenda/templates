@@ -5,6 +5,9 @@ version = "0.1.0"
 edition = "2021"
 readme = "README.md"
 build = "build.rs"
+license = "GPLv3"
+keywords = ["rust"]
+categories = ["development-tools"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
