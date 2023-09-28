@@ -11,7 +11,7 @@ categories = ["development-tools"]
 repository = "https://github.com/9glenda/rust-flake"
 
 [dependencies]
-clap = { version = "4.4.3", features = ["cargo", "derive"] }
+clap = { version = "4.4.5", features = ["cargo", "derive"] }
 
 
 [[bin]]
