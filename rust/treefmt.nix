@@ -19,5 +19,8 @@
     yamlfmt = {
       enable = true;
     };
+    statix = {
+      enable = true;
+    };
   };
 }

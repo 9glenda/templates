@@ -1,5 +1,5 @@
 use clap::{Parser, Subcommand};
-use color_eyre::{eyre::Report, eyre::eyre, eyre::Result};
+use color_eyre::{eyre::eyre, eyre::Report, eyre::Result};
 use tracing::{info, instrument};
 
 #[derive(Parser)]
@@ -16,14 +16,18 @@ enum Commands {
 }
 
 #[instrument]
-fn main() -> Result<(),Report> {
+fn main() -> Result<(), Report> {
     #[cfg(feature = "capture-spantrace")]
     install_tracing();
     color_eyre::install()?;
     let cli = Cli::parse();
-    println!("{}",match &cli.command {
-        Commands::Print { text } => say_hello(text),
-    }.unwrap());
+    println!(
+        "{}",
+        match &cli.command {
+            Commands::Print { text } => say_hello(text),
+        }
+        .unwrap()
+    );
     Ok(())
 }
 
@@ -46,15 +50,14 @@ fn install_tracing() {
 }
 
 #[instrument]
-fn say_hello(name: &str) -> Result<String,Report> {
+fn say_hello(name: &str) -> Result<String, Report> {
     info!("say hello called");
 
     match name {
         "" | "a" => Err(eyre!("invalid name")), // invalid name
         x => {
-
-    info!("valid name");
+            info!("valid name");
             Ok(format!("hello {}", x))
-        },
+        }
     }
 }
