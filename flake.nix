@@ -42,7 +42,10 @@
           path = ./dotfiles;
           description = "A basic dotfiles flake";
         };
-
+        haskell = {
+          path = ./haskell;
+          description = "A basic flake for haskell development";
+        };
         dwm-flake = {
           path = ./dwm-flake;
           description = "A basic dwm flake";
