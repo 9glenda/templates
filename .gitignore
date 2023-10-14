@@ -1,3 +1,4 @@
 .direnv
 result
 .tmp
+ocaml/_build

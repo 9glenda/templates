@@ -1,15 +1,15 @@
 cabal-version:   3.0
-name:            example
+name:            haskell-flake
 version:         0.1.0.0
-license:         NONE
-author:          Joe
-maintainer:      joe@example.com
+license:         GPL-3.0-or-later
+author:          9glenda
+maintainer:      plan9git@proton.me
 build-type:      Simple
 
 common warnings
     ghc-options: -Wall
 
-executable example
+executable haskell-flake
     import:           warnings
     main-is:          Main.hs
     build-depends:    base

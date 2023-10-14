@@ -1,0 +1,4 @@
+(executable
+ (public_name nix_ocaml)
+ (name main)
+ (libraries nix_ocaml))

@@ -38,20 +38,20 @@
           #   };
           # };
 
-          # devShell = {
-          #  # Enabled by default
-          #  enable = true;  
-          #
-          #  # Programs you want to make available in the shell.
-          #  # Default programs can be disabled by setting to 'null'
-          #  tools = hp: { fourmolu = hp.fourmolu; ghcid = null; };
-          #
-          #  hlsCheck.enable = true;
-          # };
+          devShell = {
+            # Enabled by default
+            enable = true;
+
+            # Programs you want to make available in the shell.
+            # Default programs can be disabled by setting to 'null'
+            tools = hp: { fourmolu = hp.fourmolu; ghcid = null; };
+
+            hlsCheck.enable = true;
+          };
         };
 
         # haskell-flake doesn't set the default package, but you can do it here.
-        packages.default = self'.packages.example;
+        packages.default = self'.packages.haskell-flake;
       };
     };
 }
