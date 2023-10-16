@@ -46,6 +46,10 @@
           path = ./haskell;
           description = "A basic flake for haskell development";
         };
+        ocaml = {
+          path = ./ocaml;
+          description = "A basic flake for ocaml development";
+        };
         dwm-flake = {
           path = ./dwm-flake;
           description = "A basic dwm flake";

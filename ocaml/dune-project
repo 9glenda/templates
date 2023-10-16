@@ -1,26 +1,26 @@
-(lang dune 3.10)
+(lang dune 3.11)
 
 (name nix_ocaml)
 
 (generate_opam_files true)
 
 (source
- (github username/reponame))
+ (github "9glenda/nix-ocaml"))
 
-(authors "Author Name")
+(authors "9glenda")
 
-(maintainers "Maintainer Name")
+(maintainers "9glenda")
 
 (license LICENSE)
 
-(documentation https://url/to/documentation)
+(documentation https://github.com/9glenda/nix-ocaml)
 
 (package
  (name nix_ocaml)
- (synopsis "A short synopsis")
+ (synopsis "Simple ocaml template fro using nix flakes")
  (description "A longer description")
- (depends ocaml dune)
+ (depends (ocaml (>= "5.1.0")) dune)
  (tags
-  (topics "to describe" your project)))
+  (topics "ocaml")))
 
 ; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project
