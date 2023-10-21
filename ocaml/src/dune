@@ -1,0 +1,6 @@
+(executable
+ (public_name nix_ocaml)
+ (name main)
+ (libraries lib core)
+ (preprocess
+  (pps ppx_jane)))

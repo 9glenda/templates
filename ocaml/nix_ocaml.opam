@@ -10,8 +10,9 @@ homepage: "https://github.com/9glenda/nix-ocaml"
 doc: "https://github.com/9glenda/nix-ocaml"
 bug-reports: "https://github.com/9glenda/nix-ocaml/issues"
 depends: [
-  "ocaml" {>= "5.1.0"}
   "dune" {>= "3.11"}
+  "ocaml" {>= "5.1.0"}
+  "core" {>= "0.16.0"}
   "odoc" {with-doc}
 ]
 build: [

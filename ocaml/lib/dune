@@ -1,2 +1,6 @@
 (library
- (name nix_ocaml))
+ (name lib)
+ (libraries core)
+ (inline_tests)
+ (preprocess
+  (pps ppx_jane)))

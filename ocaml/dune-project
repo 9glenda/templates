@@ -19,7 +19,13 @@
  (name nix_ocaml)
  (synopsis "Simple ocaml template fro using nix flakes")
  (description "A longer description")
- (depends (ocaml (>= "5.1.0")) dune)
+ (depends 
+   dune
+   (ocaml (>= "5.1.0"))
+   ; jane street
+   (core (>= 0.16.0))
+   ; (core_extended (>= 0.16.0))
+  )
  (tags
   (topics "ocaml")))
 
