@@ -15,7 +15,7 @@ clap = { version = "4.4.7", features = ["cargo", "derive"] }
 color-eyre = "0.6.2"
 tracing = "0.1.40"
 tracing-error = "0.2.0"
-tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 
 [features]
 default = ["capture-spantrace"]
