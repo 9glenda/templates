@@ -56,9 +56,11 @@
         query = devPackagesQuery // {
           ocaml-base-compiler = "5.1.0";
         };
-        scope = on.buildDuneProject { 
-          # inherit repos;
-        } "${package}" ./. query;
+        scope = on.buildDuneProject
+          {
+            # inherit repos;
+          } "${package}" ./.
+          query;
         overlay = final: prev: {
           # You can add overrides here
           ${package} = prev.${package}.overrideAttrs (_: {
