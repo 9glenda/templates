@@ -54,6 +54,11 @@
           description = "A basic dwm flake";
         };
 
+
+        rust-parts = {
+          path = ./rust-parts;
+          description = "Rust flake using flake-parts and nix-cargo-intigration";
+        };
         rust = {
           path = ./rust;
           description = "A basic rust flake";
