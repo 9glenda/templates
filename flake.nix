@@ -31,12 +31,10 @@
     in
     {
       templates = {
-
         golang-old = {
           path = ./golang-old;
           description = "A basic golang flake";
         };
-
         dotfiles = {
           path = ./dotfiles;
           description = "A basic dotfiles flake";
@@ -54,7 +52,10 @@
           description = "A basic dwm flake";
         };
 
-
+        latex = {
+          path = ./latex;
+          description = "latex notes template";
+        };
         rust-parts = {
           path = ./rust-parts;
           description = "Rust flake using flake-parts and nix-cargo-intigration";
