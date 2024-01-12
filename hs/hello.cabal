@@ -1,0 +1,32 @@
+name: hello
+version: 1.0.0.2
+license: GPL-3 
+license-file: LICENSE
+copyright: (c) 9glenda
+author: 9glenda <plan9git@proton.me>
+bug-reports: plan9git@proton.me
+stability: stable
+homepage: http://www.haskell.org
+synopsis: Haskell nix template
+category: Console, Text
+cabal-version: >= 1.6
+build-type: Simple
+
+Description:
+  Haskell nix template
+
+-- source-repository head
+--   type:     darcs
+--   location: http://darcs.haskell.org/hello/
+
+flag threaded
+  default: False
+
+executable hello
+  hs-source-dirs: src
+  main-is: Main.hs
+  build-depends:
+    base >= 4.2
+
+  if flag(threaded)
+     ghc-options: -threaded

@@ -2,3 +2,4 @@
 result
 .tmp
 ocaml/_build
+hs/dist-newstyle
