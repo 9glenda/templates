@@ -24,12 +24,12 @@
     };
   };
 
-  outputs = inputs @ {
-    flake-parts,
-    nci,
-    ...
-  }:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+  outputs =
+    inputs @ { flake-parts
+    , nci
+    , ...
+    }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
         "x86_64-darwin"
@@ -41,54 +41,58 @@
         inputs.treefmt-nix.flakeModule
         inputs.pre-commit-hooks.flakeModule
       ];
-      perSystem = {
-        config,
-        pkgs,
-        self',
-        ...
-      }: let
-        name = "example";
-      in {
-        treefmt = import ./treefmt.nix;
-        pre-commit = let
-          toFilter = ["yamlfmt"];
-          filterFn = n: _v: (!builtins.elem n toFilter);
-          treefmtFormatters = pkgs.lib.mapAttrs (_n: v: {inherit (v) enable;}) (pkgs.lib.filterAttrs filterFn (import ./treefmt.nix).programs);
-        in {
-          settings = {
-            src = ./.;
+      perSystem =
+        { config
+        , pkgs
+        , self'
+        , ...
+        }:
+        let
+          name = "example";
+        in
+        {
+          treefmt = import ./treefmt.nix;
+          pre-commit =
+            let
+              toFilter = [ "yamlfmt" ];
+              filterFn = n: _v: (!builtins.elem n toFilter);
+              treefmtFormatters = pkgs.lib.mapAttrs (_n: v: { inherit (v) enable; }) (pkgs.lib.filterAttrs filterFn (import ./treefmt.nix).programs);
+            in
+            {
+              settings = {
+                src = ./.;
 
-            hooks =
-              treefmtFormatters;
-          };
-        };
+                hooks =
+                  treefmtFormatters;
+              };
+            };
 
-        nci = {
-          projects = {
-            ${name} = {
-              path = ./.;
+          nci = {
+            projects = {
+              ${name} = {
+                path = ./.;
+              };
             };
-          };
-          crates = {
-            ${name} = {
-              export = true;
+            crates = {
+              ${name} = {
+                export = true;
+              };
             };
+            toolchainConfig = ./rust-toolchain.toml;
           };
-          toolchainConfig = ./rust-toolchain.toml;
+          packages = {
+            default = self'.packages."${name}-release";
+            toolchain = config.nci.toolchains.shell;
+          };
+          devShells.default = pkgs.mkShell {
+            shellHook = ''
+              ${config.pre-commit.installationScript}
+            '';
+            nativeBuildInputs = with pkgs; [
+              config.nci.toolchains.shell
+            ];
+          };
+          # packages.default = crateOutputs.packages.release;
         };
-        packages = {
-          default = self'.packages."${name}-release";
-          toolchain = config.nci.toolchains.shell;
-        };
-        devShells.default = pkgs.mkShell {
-          shellHook = ''
-            ${config.pre-commit.installationScript}
-          '';
-          nativeBuildInputs = with pkgs; [
-            config.nci.toolchains.shell
-          ];
-        };
-        # packages.default = crateOutputs.packages.release;
-      };
     };
 }

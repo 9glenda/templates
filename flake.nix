@@ -25,8 +25,10 @@
 
       nixpkgsFor = forAllSystems (system: import nixpkgsUnstable { inherit system; });
 
-      mkTemplate = { path, description }: { path = builtins.path { path = ./example; filter = path: _: baseNameOf path != "flake.lock"; }; 
-      inherit description; };
+      mkTemplate = { path, description }: {
+        path = builtins.path { path = ./example; filter = path: _: baseNameOf path != "flake.lock"; };
+        inherit description;
+      };
 
     in
     {
